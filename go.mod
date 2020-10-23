@@ -1,4 +1,4 @@
-module packages
+module github.com/seanlan/packages
 
 go 1.14
 

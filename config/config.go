@@ -52,7 +52,7 @@ func GetBoolean(keys ...string) (result bool) {
 	for _, k := range keys {
 		value = value.Get(k)
 	}
-	err := value.Populate(&value)
+	err := value.Populate(&result)
 	if err != nil {
 		return false
 	}

@@ -29,8 +29,8 @@ func RegisterTasks(tasks map[string]interface{}) {
 }
 
 //执行任务监听
-func RunWorker(consumerTag string, concurrency int) {
-	worker := Celery.NewWorker(consumerTag, concurrency)
+func RunWorker(consumerTag string, concurrency int, queueName string) {
+	worker := Celery.NewCustomQueueWorker(consumerTag, concurrency,queueName)
 	err := worker.Launch()
 	if err != nil {
 		panic(err)

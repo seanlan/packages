@@ -39,12 +39,15 @@ func RunWorker(consumerTag string, concurrency int, queueName string) {
 
 //发送任务
 func SendTask(taskName string, args []tasks.Arg,routingKey string, delayed int) (*result.AsyncResult, error) {
-	eta := time.Now().Add(time.Second * time.Duration(delayed))
+
 	signature := &tasks.Signature{
 		RoutingKey:routingKey,
 		Name: taskName,
-		ETA:  &eta, //定时
 		Args: args,
+	}
+	if delayed>0 {
+		eta := time.Now().Add(time.Second * time.Duration(delayed))
+		signature.ETA = &eta
 	}
 	return Celery.SendTask(signature)
 }

@@ -4,7 +4,7 @@ import (
 	"go.uber.org/zap"
 )
 
-var ZapLoger *zap.Logger
+var ZapLogger *zap.Logger
 var Logger *zap.SugaredLogger
 
 // 配置日志

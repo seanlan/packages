@@ -4,6 +4,7 @@ import (
 	"go.uber.org/zap"
 )
 
+var ZapLoger *zap.Logger
 var Logger *zap.SugaredLogger
 
 // 配置日志
@@ -15,9 +16,9 @@ func Setup(debug bool, appName string) {
 		conf = zap.NewProductionConfig()
 	}
 	conf.DisableStacktrace = true
-	_logger, _ := conf.Build()
-	_logger = _logger.With(zap.String("app", appName))
-	Logger = _logger.Sugar()
+	ZapLoger, _ := conf.Build()
+	ZapLoger = ZapLoger.With(zap.String("app", appName))
+	Logger = ZapLoger.Sugar()
 }
 
 func With(args ...interface{}) *zap.SugaredLogger {

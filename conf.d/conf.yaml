@@ -1,19 +1,13 @@
-app_name: "frame"
+app_name: "package"
 gin_mode: "debug"
 host: ":8080"
 secret_key: "DEBUG_k6psehy)hp)6)ef1n)u6ai0oz315p2(4rsper1v&9b=j@v"
-REDIS:
-  Host: "127.0.0.1:6379"
-  Password: ""
-  MaxIdle: 30
-  MaxActive: 30
-  IdleTimeout: 200
-  DB: 2
-CELERY:
+redis: "redis://localhost:6379/10"
+async_task:
   #broker: amqp://root:q145145@127.0.0.1:5672/root
   broker: "redis://localhost:6379/0"
-  result_backend: "redis://localhost:6379"
+  result_backend: "redis://localhost:6379/0"
   results_expire_in: 1
   default_queue: "DEFAULT_QUEUE"
-MYSQL:
+mysql:
   root:root@tcp(127.0.0.1:3306)/test?parseTime=true&loc=Local&charset=utf8mb4&collation=utf8mb4_unicode_ci

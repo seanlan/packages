@@ -3,6 +3,7 @@ package db
 import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"log"
 )
 
 var DB *gorm.DB
@@ -14,9 +15,25 @@ func Setup(dsn string) {
 	}
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
-		panic(err)
+		log.Panicf("connect db error: %#v", err)
 	}
 	sqlDB, err := DB.DB()
 	sqlDB.SetMaxIdleConns(20)
 	sqlDB.SetMaxOpenConns(100)
+}
+
+func InitDB(dsn string) *gorm.DB {
+	var err error
+	var db *gorm.DB
+	if dsn == "" {
+		panic("get mysql config error")
+	}
+	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if err != nil {
+		log.Fatalf("connect db error: %#v", err)
+	}
+	sqlDB, err := db.DB()
+	sqlDB.SetMaxIdleConns(20)
+	sqlDB.SetMaxOpenConns(100)
+	return db
 }

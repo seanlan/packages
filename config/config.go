@@ -15,7 +15,7 @@ func Setup(path string) {
 	var err error
 	GlobalConfig, err = uber_config.NewYAML(uber_config.File(path))
 	if nil != err {
-		log.Fatalf("read config error: %#v", err)
+		log.Panicf("read config error: %#v", err)
 	}
 }
 

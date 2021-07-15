@@ -5,17 +5,16 @@ import (
 	"time"
 )
 
-var RedisConn *redis.Pool
+var redisPool *redis.Pool
 
 const (
 	RedisMaxIdle        = 10  //最大空闲连接数
 	RedisIdleTimeoutSec = 240 //连接保持超时时间（秒）
-	LockTieoutSec       = 10  //获取锁持续时间（秒）
 )
 
 // Setup Initialize the Redis instance
-func Setup(redisURL string) error {
-	RedisConn = &redis.Pool{
+func Setup(redisURL string) {
+	redisPool = &redis.Pool{
 		MaxIdle:     RedisMaxIdle,
 		IdleTimeout: RedisIdleTimeoutSec,
 		Dial: func() (redis.Conn, error) {
@@ -30,18 +29,17 @@ func Setup(redisURL string) error {
 			return err
 		},
 	}
-	return nil
 }
 
 func Do(commandName string, args ...interface{}) (reply interface{}, err error) {
-	conn := RedisConn.Get()
+	conn := redisPool.Get()
 	defer conn.Close()
 	return conn.Do(commandName, args...)
 }
 
-// 获取Redis锁
+// GetLock 获取Redis锁
 func GetLock(lockKey string, expiration int64) (bool, error) {
-	conn := RedisConn.Get()
+	conn := redisPool.Get()
 	defer conn.Close()
 	result, err := redis.Int64(conn.Do("INCR", lockKey))
 	if err != nil {
@@ -57,9 +55,9 @@ func GetLock(lockKey string, expiration int64) (bool, error) {
 	return true, nil
 }
 
-// 释放 Redis 锁
+// ReleaseLock 释放 Redis 锁
 func ReleaseLock(lockKey string) bool {
-	conn := RedisConn.Get()
+	conn := redisPool.Get()
 	defer conn.Close()
 	_, err := conn.Do("DEL", lockKey)
 	if err != nil {
@@ -71,7 +69,7 @@ func ReleaseLock(lockKey string) bool {
 func Set(key string, value interface{}) (bool, error) {
 	result, err := redis.String(Do("SET", key, value))
 	if result == "OK" {
-		return true,nil
+		return true, nil
 	}
 	return false, err
 }

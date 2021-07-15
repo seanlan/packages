@@ -1,4 +1,4 @@
-package task_queue
+package machinery_service
 
 import (
 	"log"

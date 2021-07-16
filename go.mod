@@ -9,6 +9,7 @@ require (
 	github.com/aws/aws-sdk-go v1.40.0 // indirect
 	github.com/buger/jsonparser v1.0.0
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/gin-contrib/zap v0.0.1
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-redis/redis/v8 v8.11.0 // indirect
 	github.com/go-redsync/redsync/v4 v4.3.0 // indirect
@@ -31,7 +32,7 @@ require (
 	go.uber.org/config v1.4.0
 	go.uber.org/zap v1.16.0
 	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97 // indirect
-	golang.org/x/oauth2 v0.0.0-20210628180205-a41e5a781914
+	golang.org/x/oauth2 v0.0.0-20210628180205-a41e5a781914 // indirect
 	golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c // indirect
 	golang.org/x/tools v0.1.5 // indirect
 	google.golang.org/genproto v0.0.0-20210714021259-044028024a4f // indirect

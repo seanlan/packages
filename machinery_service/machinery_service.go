@@ -42,7 +42,6 @@ func RunWorker(consumerTag string, concurrency int) {
 
 // SendTask 发送任务
 func SendTask(taskName string, args []tasks.Arg, routingKey string, delayed int) (*result.AsyncResult, error) {
-
 	signature := &tasks.Signature{
 		RoutingKey: routingKey,
 		Name:       taskName,

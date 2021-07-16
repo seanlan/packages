@@ -10,4 +10,4 @@ async_task:
   results_expire_in: 1
   default_queue: "DEFAULT_QUEUE"
 mysql:
-  root:q145145145@tcp(127.0.0.1:3306)/gift?parseTime=true&loc=Local&charset=utf8mb4&collation=utf8mb4_unicode_ci
+  root:root@tcp(127.0.0.1:3306)/test?parseTime=true&loc=Local&charset=utf8mb4&collation=utf8mb4_unicode_ci

@@ -13,7 +13,7 @@ func InitCelery() {
 	var err error
 	err = config.GetValue("async_task").Populate(&asyncConfig)
 	if err != nil {
-		log.Fatal("init celery err: %#v", err)
+		log.Fatalf("init celery err: %#v", err)
 	}
 	machinery_service.Setup(&asyncConfig)
 }

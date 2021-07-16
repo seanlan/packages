@@ -9,17 +9,7 @@ import (
 var DB *gorm.DB
 
 func Setup(dsn string) {
-	var err error
-	if dsn == "" {
-		panic("get mysql config error")
-	}
-	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
-	if err != nil {
-		log.Panicf("connect db error: %#v", err)
-	}
-	sqlDB, err := DB.DB()
-	sqlDB.SetMaxIdleConns(20)
-	sqlDB.SetMaxOpenConns(100)
+	DB = InitDB(dsn)
 }
 
 func InitDB(dsn string) *gorm.DB {

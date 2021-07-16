@@ -9,6 +9,8 @@ require (
 	github.com/aws/aws-sdk-go v1.40.0 // indirect
 	github.com/buger/jsonparser v1.0.0
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/gin-contrib/cache v1.1.0
+	github.com/gin-contrib/requestid v0.0.1
 	github.com/gin-contrib/zap v0.0.1
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-redis/redis/v8 v8.11.0 // indirect

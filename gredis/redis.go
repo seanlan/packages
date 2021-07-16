@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-var redisPool *redis.Pool
+var RedisPool *redis.Pool
 
 const (
 	RedisMaxIdle        = 10  //最大空闲连接数
@@ -14,7 +14,7 @@ const (
 
 // Setup Initialize the Redis instance
 func Setup(redisURL string) {
-	redisPool = &redis.Pool{
+	RedisPool = &redis.Pool{
 		MaxIdle:     RedisMaxIdle,
 		IdleTimeout: RedisIdleTimeoutSec,
 		Dial: func() (redis.Conn, error) {
@@ -32,14 +32,14 @@ func Setup(redisURL string) {
 }
 
 func Do(commandName string, args ...interface{}) (reply interface{}, err error) {
-	conn := redisPool.Get()
+	conn := RedisPool.Get()
 	defer conn.Close()
 	return conn.Do(commandName, args...)
 }
 
 // GetLock 获取Redis锁
 func GetLock(lockKey string, expiration int64) (bool, error) {
-	conn := redisPool.Get()
+	conn := RedisPool.Get()
 	defer conn.Close()
 	result, err := redis.Int64(conn.Do("INCR", lockKey))
 	if err != nil {
@@ -57,7 +57,7 @@ func GetLock(lockKey string, expiration int64) (bool, error) {
 
 // ReleaseLock 释放 Redis 锁
 func ReleaseLock(lockKey string) bool {
-	conn := redisPool.Get()
+	conn := RedisPool.Get()
 	defer conn.Close()
 	_, err := conn.Do("DEL", lockKey)
 	if err != nil {

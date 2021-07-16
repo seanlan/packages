@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	config.Setup("")
+	config.Setup("example/conf.d/conf.yaml")
 	db.Setup(config.GetString("mysql"))
 	var cnt int64
 	db.DB.Table("tb_good_spu").Count(&cnt)

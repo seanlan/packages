@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	config.Setup("")
+	config.Setup("example/conf.d/conf.yaml")
 	fmt.Println(config.GlobalConfig)
 }
